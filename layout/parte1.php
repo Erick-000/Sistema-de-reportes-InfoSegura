@@ -180,6 +180,25 @@
             </ul>
           </li>
 
+
+          <li class="nav-item menu">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Reportes Colombia
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo $URL; ?>/api/listado_api.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado de reportes</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <hr>
 
           <li class="nav-item">
