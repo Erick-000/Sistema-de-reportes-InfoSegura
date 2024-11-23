@@ -75,7 +75,7 @@
             <img src="<?php echo $URL; ?>/public/images/user-icon.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block"><?php echo $nombres_sesion; ?></a>
+            <a href="<?php echo $URL; ?>" class="d-block"><?php echo $nombres_sesion; ?></a>
           </div>
         </div>
 

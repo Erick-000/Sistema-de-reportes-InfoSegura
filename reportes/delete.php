@@ -147,7 +147,7 @@ include('../app/controllers/reportes/cargar_reporte.php');
                                     </a>
                                     <button class="btn btn-danger" >
                                         <i class="fa fa-trash"></i>
-                                        Eliminar producto 
+                                        Eliminar Reporte 
                                     </button>
                                 </div>
                             </div>

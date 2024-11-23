@@ -3,6 +3,8 @@
     --secondary-color: #3498DB;
     --accent-color: #E74C3C;
     --light-bg: #F8F9FA;
+    --text-muted: #6c757d;
+    --border-color: #e9ecef;
 }
 
 body {
@@ -68,14 +70,53 @@ body {
     object-fit: cover;
 }
 
+/* Nuevos estilos para la categoría y meta información */
+.meta-top {
+    margin-bottom: 0.75rem;
+}
+
+.category-text {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.meta-info {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+
+.meta-info small {
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.meta-info i {
+    color: var(--secondary-color);
+    width: 16px;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+/* Eliminamos los estilos antiguos del badge */
 .category-badge {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 10px;
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-    display: inline-block;
+    display: none;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.card-text {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
 }
 
 .pagination .page-item .page-link {

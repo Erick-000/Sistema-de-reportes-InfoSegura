@@ -232,7 +232,7 @@ include('../app/controllers/categorias/listado_de_categorias.php');
                                         <a href="index.php" class="btn btn-secondary">
                                             Cancelar
                                         </a>
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-success">
                                             Actualizar Reporte
                                         </button>
                                     </div>

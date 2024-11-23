@@ -75,4 +75,3 @@ include('../app/controllers/usuarios/show_usuario.php')
 
 <!-- // Se incluye el archivo donde se encuentra contenido y footer del sitio -->
 <?php include('../layout/parte2.php'); ?>
-<?php include('../layout/mensaje.php'); ?>
