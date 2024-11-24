@@ -18,5 +18,5 @@ as nombre_rol ON us.id_rol = nombre_rol.id_rol WHERE email = '$email_sesion'";
   }
 } else {
   echo "No existe sesión";
-  header('Location: ' . $URL . '/login');
+  header('Location: ' . $URL . '/principal.php');
 }

@@ -199,6 +199,25 @@
             </ul>
           </li>
 
+
+          <li class="nav-item menu">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-chart-bar"></i> <!-- Cambié el ícono de archivo a uno más relacionado con gráficas -->
+              <p>
+                Gráficas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo $URL; ?>/graficas/index.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i> 
+                  <p>Ver gráficas</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <hr>
 
           <li class="nav-item">
@@ -210,7 +229,7 @@
               </p>
             </a>
           </li>
-          
+
           <li class="nav-item">
             <a href="<?php echo $URL; ?>/principal.php" class="nav-link" style="background-color: #007bff;">
               <i class="nav-icon fas fa-door-open"></i>
