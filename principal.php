@@ -47,13 +47,14 @@ include('app/controllers/api/consumo_api_principal.php');
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home me-1"></i>Inicio</a>
+                        <a class="nav-link" href="#inicio"><i class="fas fa-home me-1"></i>Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reportes"><i class="fas fa-file-alt me-1"></i>Reportes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $URL; ?>/principal/nosotros.php"><i class="fas fa-info-circle me-1"></i>Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-file-alt me-1"></i>Reportes</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,7 +104,7 @@ include('app/controllers/api/consumo_api_principal.php');
                                 // Usuario sin sesión
                             ?>
                                 <li>
-                                    <a class="dropdown-item" href="<?php echo $URL; ?>/registro">
+                                    <a class="dropdown-item" href="<?php echo $URL; ?>/registro/registro.php">
                                         <i class="fas fa-user-plus me-2"></i>Registrarse
                                     </a>
                                 </li>
@@ -122,84 +123,106 @@ include('app/controllers/api/consumo_api_principal.php');
         </div>
     </nav>
 
-    <!-- Header -->
-    <header class="page-header">
+    <!-- Sección Inicio -->
+    <section id="inicio">
+        <header class="page-header">
+            <div class="hero-background"></div>
+            <div class="container position-relative">
+                <!-- Espaciado superior -->
+                <div class="py-4"></div>
+                <div class="py-4"></div>
+
+                <div class="header-content text-center">
+                    <!-- Espaciado antes del título -->
+                    <div class="py-4"></div>
+
+                    <h1 class="display-4 fw-bold mb-5">
+                        <i class="fas fa-file-alt me-2"></i>
+                        Reportes Recientes
+                    </h1>
+
+                    <!-- Espaciado entre título y subtítulo -->
+                    <div class="py-3"></div>
+
+                    <p class="lead hero-subtitle mb-5">
+                        Mantente informado sobre los últimos acontecimientos en tu comunidad
+                    </p>
+
+                    <!-- Espaciado inferior -->
+                    <div class="py-3"></div>
+                    <div class="py-3"></div>
+                </div>
+            </div>
+        </header>
+    </section>
+
+
+    <section id="reportes">
         <div class="container">
-            <h1><i class="fas fa-file-alt me-2"></i>Reportes Recientes</h1>
-            <p class="lead">Mantente informado sobre los últimos acontecimientos en tu comunidad</p>
-        </div>
-    </header>
+            <div class="row">
+                <?php
+                // Configuración de la paginación
+                $reportes_por_pagina = 3;
+                $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                $total_reportes = count($reportes_datos);
+                $total_paginas = ceil($total_reportes / $reportes_por_pagina);
 
-    <div class="container">
-        <div class="row">
-            <?php
-            // Configuración de la paginación
-            $reportes_por_pagina = 3;
-            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-            $total_reportes = count($reportes_datos);
-            $total_paginas = ceil($total_reportes / $reportes_por_pagina);
+                // Calcular el índice inicial y final para la página actual
+                $indice_inicial = ($pagina_actual - 1) * $reportes_por_pagina;
+                $reportes_pagina = array_slice($reportes_datos, $indice_inicial, $reportes_por_pagina);
 
-            // Calcular el índice inicial y final para la página actual
-            $indice_inicial = ($pagina_actual - 1) * $reportes_por_pagina;
-            $reportes_pagina = array_slice($reportes_datos, $indice_inicial, $reportes_por_pagina);
-
-            foreach ($reportes_pagina as $reporte) { ?>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <img src="<?php echo $URL . "/reportes/img_reportes/" . htmlspecialchars($reporte['imagen']); ?>"
-                            class="card-img-top" alt="Imagen del reporte">
-                        <div class="card-body d-flex flex-column">
-                            <div class="meta-top mb-2">
-                            </div>
-                            <h5 class="card-title"><?php echo htmlspecialchars($reporte['titulo']); ?></h5>
-                            <p class="card-text flex-grow-1">
-                                <?php echo htmlspecialchars(substr($reporte['descripcion'], 0, 100)) . '...'; ?>
-                            </p>
-                            <div class="meta-info">
-                                <small class="text-muted d-block">
-                                    <i class="fas fa-user me-1"></i>Subido por: <?php echo htmlspecialchars($reporte['nombre_usuario']); ?>
-                                </small>
-                                <small class="text-muted">
-                                    <i class="fas fa-list me-1"></i>Categoria: <?php echo htmlspecialchars($reporte['nombre_categoria']); ?>
-                                </small>
-                                <small class="text-muted d-block">
-                                    <i class="fas fa-calendar-alt me-1"></i>Fecha de publicación: <?php echo htmlspecialchars($reporte['fecha_creacion']); ?>
-                                </small>
+                foreach ($reportes_pagina as $reporte) { ?>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="<?php echo $URL . "/reportes/img_reportes/" . htmlspecialchars($reporte['imagen']); ?>" class="card-img-top" alt="Imagen del reporte">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?php echo htmlspecialchars($reporte['titulo']); ?></h5>
+                                <p class="card-text flex-grow-1"><?php echo htmlspecialchars(substr($reporte['descripcion'], 0, 100)) . '...'; ?></p>
+                                <div class="meta-info">
+                                    <small class="text-muted d-block">
+                                        <i class="fas fa-user me-1"></i>Subido por: <?php echo htmlspecialchars($reporte['nombre_usuario']); ?>
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="fas fa-list me-1"></i>Categoría: <?php echo htmlspecialchars($reporte['nombre_categoria']); ?>
+                                    </small>
+                                </div>
+                                <!-- Botón Ver más -->
+                                <a class="btn btn-primary mt-auto" href="principal/ver_mas.php?id=<?php echo $reporte['id_reporte']; ?>">Ver más</a>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php } ?>
-        </div>
+                <?php } ?>
+            </div>
+    </section>
 
-        <!-- Paginación -->
-        <div class="d-flex justify-content-center mt-4">
-            <nav aria-label="Navegación de reportes">
-                <ul class="pagination">
-                    <?php if ($pagina_actual > 1): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>">
-                                <i class="fas fa-chevron-left"></i>
-                            </a>
-                        </li>
-                    <?php endif; ?>
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Navegación de reportes">
+            <ul class="pagination">
+                <?php if ($pagina_actual > 1): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?pagina=<?php echo $pagina_actual - 1; ?>">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
 
-                    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
-                        <li class="page-item <?php echo ($i == $pagina_actual) ? 'active' : ''; ?>">
-                            <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
-                        </li>
-                    <?php endfor; ?>
+                <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                    <li class="page-item <?php echo ($i == $pagina_actual) ? 'active' : ''; ?>">
+                        <a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
 
-                    <?php if ($pagina_actual < $total_paginas): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>">
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-        </div>
+                <?php if ($pagina_actual < $total_paginas): ?>
+                    <li class="page-item">
+                        <a class="page-link" href="?pagina=<?php echo $pagina_actual + 1; ?>">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </div>
     </div>
 
     <div class="container mt-5">
@@ -316,8 +339,7 @@ include('app/controllers/api/consumo_api_principal.php');
                     <h6>Enlaces Rápidos</h6>
                     <ul class="footer-links">
                         <li><a href="<?php echo $URL; ?>/principal/nosotros.php">Nosotros</a></li>
-                        <li><a href="#">Contacto</a></li>
-                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="<?php echo $URL; ?>/principal/politica_privacidad.php">Política de Privacidad</a></li>
                     </ul>
                 </div>
             </div>
@@ -333,10 +355,8 @@ include('app/controllers/api/consumo_api_principal.php');
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a class="instagram" href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a class="facebook" href="https://www.facebook.com/manuel.palacios.56614"><i class="fab fa-facebook"></i></a></li>
+                        <li><a class="instagram" href="https://www.instagram.com/erick_manuel.000/"><i class="fab fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>

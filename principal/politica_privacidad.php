@@ -1,6 +1,18 @@
 <?php
 include('../app/config.php');
-include('../layout/sesion.php');
+include('../layout/nav_var_principal.php');
+// Verificar si el usuario está logueado
+if (isset($_SESSION['sesion_email'])) {
+    // El usuario está logueado, puedes acceder a su información
+    $usuario_email = $_SESSION['sesion_email'];
+    $usuario_nombre = $_SESSION['nombre_usuario'] ?? 'Usuario';
+    $usuario_rol = $_SESSION['id_rol'] ?? null;
+} else {
+    // El usuario no está logueado
+    $usuario_email = null;
+    $usuario_nombre = 'Usuario';
+    $usuario_rol = null;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,90 +29,6 @@ include('../layout/sesion.php');
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-shield-alt me-2"></i>InfoSegura
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $URL; ?>/principal.php"><i class="fas fa-home me-1"></i>Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $URL; ?>/principal/nosotros.php"><i class="fas fa-info-circle me-1"></i>Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $URL; ?>/principal.php"><i class="fas fa-file-alt me-1"></i>Reportes</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-1"></i>
-                            <?php
-                            if (isset($_SESSION['sesion_email'])) {
-                                echo htmlspecialchars($_SESSION['nombre_usuario'] ?? 'Usuario');
-                            } else {
-                                echo 'Usuario';
-                            }
-                            ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <?php
-                            if (isset($_SESSION['sesion_email'])) {
-                            ?>
-                                <li><span class="dropdown-item-text">
-                                        <i class="fas fa-user-circle me-2"></i>
-                                        <?php echo htmlspecialchars($_SESSION['nombre_usuario'] ?? 'Usuario'); ?>
-                                    </span></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <?php
-                                if (isset($_SESSION['id_rol']) && $_SESSION['id_rol'] == 1) {
-                                ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo $URL; ?>/index.php">
-                                            <i class="fas fa-cogs me-2"></i>Ir al panel de administración
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                <?php
-                                }
-                                ?>
-                                <li>
-                                    <a class="dropdown-item" href="<?php echo $URL; ?>/app/controllers/login/cerrar_sesion.php">
-                                        <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                                    </a>
-                                </li>
-                            <?php
-                            } else {
-                            ?>
-                                <li>
-                                    <a class="dropdown-item" href="<?php echo $URL; ?>/registro">
-                                        <i class="fas fa-user-plus me-2"></i>Registrarse
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="<?php echo $URL; ?>/login">
-                                        <i class="fas fa-door-open me-2"></i>Iniciar Sesión
-                                    </a>
-                                </li>
-                            <?php
-                            }
-                            ?>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <!-- Header -->
     <header class="page-header">
         <div class="container">
@@ -131,8 +59,6 @@ include('../layout/sesion.php');
                 <ul>
                     <li>Datos de registro (nombre, correo electrónico, contraseña)</li>
                     <li>Información de perfil</li>
-                    <li>Contenido de los reportes que realizas</li>
-                    <li>Comunicaciones con nuestro equipo de soporte</li>
                 </ul>
                 <h4>Información recopilada automáticamente:</h4>
                 <ul>
@@ -153,8 +79,6 @@ include('../layout/sesion.php');
                     <li>Proporcionar y mantener nuestros servicios</li>
                     <li>Mejorar y personalizar tu experiencia</li>
                     <li>Procesar y gestionar los reportes</li>
-                    <li>Comunicarnos contigo sobre actualizaciones o cambios</li>
-                    <li>Prevenir actividades fraudulentas y mejorar la seguridad</li>
                     <li>Cumplir con obligaciones legales</li>
                 </ul>
             </div>
@@ -235,46 +159,8 @@ include('../layout/sesion.php');
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h6>Acerca de</h6>
-                    <p class="text-justify">InfoSegura busca brindar acceso a información confiable y actualizada sobre los reportes en tu comunidad. Nuestra misión es mantenerte informado y conectado con lo que sucede a tu alrededor.</p>
-                </div>
 
-                <div class="col-xs-6 col-md-3">
-                    <h6>Enlaces Rápidos</h6>
-                    <ul class="footer-links">
-                        <li><a href="<?php echo $URL; ?>/principal/nosotros.php">Nosotros</a></li>
-                        <li><a href="#">Contacto</a></li>
-                        <li><a href="#">Política de Privacidad</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
-                    <p class="copyright-text">Copyright &copy; 2024 Todos los derechos reservados por
-                        <a href="#">InfoSegura</a>.
-                    </p>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a class="instagram" href="#"><i class="fab fa-instagram"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <?php include('../layout/footer_principal.php'); ?>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

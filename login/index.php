@@ -61,7 +61,7 @@ include('../app/config.php');
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" name="password_user" class="form-control" placeholder="Password" required>
+            <input type="password" name="password_user" class="form-control" placeholder="Contraseña" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
